@@ -37,6 +37,6 @@ async function handleRequest(request) {
   return new Response(infoGempaString, {
     headers: {
       'content-type': 'application/json',
-      'access-control-allow-origin': 'http://localhost:8080' },
+      'access-control-allow-origin': 'https://streamalert-bmkg.netlify.app' },
   })
 }

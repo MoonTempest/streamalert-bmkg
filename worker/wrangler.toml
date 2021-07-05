@@ -1,0 +1,11 @@
+name = "worker"
+type = "javascript"
+
+account_id = "be3f30c52bb2d3d18c5956a8bcc9e929"
+workers_dev = true
+route = ""
+zone_id = "e1571178ffce8a91a9b50036170f0199"
+
+kv_namespaces = [ 
+    { binding = "STREAMALERT_BMKG", preview_id = "c89e785d348e4204be5313752c9a3d67", id = "4efed72e6bc74636bd1158e6e9823466" }
+]

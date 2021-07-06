@@ -28,15 +28,25 @@ async function handleRequest(request) {
     const infoGempa = data.Infogempa.gempa;
 
     infoGempaString = JSON.stringify(infoGempa);
-    await kv.put('infogempa', infoGempaString);
-    await kv.put('cachedate', Date.now());
+
+    oldInfoGempaString = await kv.get('infogempa');
+    oldInfoGempa = JSON.parse(oldInfoGempaString);
+
+    if (!oldInfoGempa || !oldInfoGempa.DateTime || infoGempa.DateTime != oldInfoGempa.DateTime) {
+      console.log("Outdated data, updating");
+      await kv.put('infogempa', infoGempaString);
+      await kv.put('cachedate', Date.now());
+    } else {
+      console.log("Updated data");
+    }
   } else {
+    console.log("Using the cache");
     infoGempaString = await kv.get('infogempa');
-    console.log(infoGempaString);
   }
   return new Response(infoGempaString, {
     headers: {
       'content-type': 'application/json',
-      'access-control-allow-origin': 'https://streamalert-bmkg.netlify.app' },
+      'access-control-allow-origin': 'https://streamalert-bmkg.netlify.app'
+    },
   })
 }
